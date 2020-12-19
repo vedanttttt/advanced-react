@@ -1,7 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { data } from '../../../data';
+import React, { useState, useContext } from "react";
+import { data } from "../../../data";
 // more components
 // fix - context api, redux (for more complex cases)
+
+const PersonContext = React.createContext();
+// we will get access to two components - Provider, Consumer
 
 const ContextAPI = () => {
   const [people, setPeople] = useState(data);
@@ -11,10 +14,10 @@ const ContextAPI = () => {
     });
   };
   return (
-    <>
+    <PersonContext.Provider value="hello">
       <h3>prop drilling</h3>
       <List people={people} removePerson={removePerson} />
-    </>
+    </PersonContext.Provider>
   );
 };
 
@@ -36,7 +39,7 @@ const List = ({ people, removePerson }) => {
 
 const SinglePerson = ({ id, name, removePerson }) => {
   return (
-    <div className='item'>
+    <div className="item">
       <h4>{name}</h4>
       <button onClick={() => removePerson(id)}>remove</button>
     </div>
